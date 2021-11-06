@@ -33,6 +33,7 @@ playerx = 250
 playery = 0
 enemyY1 = 0
 enemyX1 = 100
+enemy1Alive = True
 EnemyVelocity1 = 0
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(GameName)
@@ -49,7 +50,8 @@ while not done:
         background = pygame.draw.rect(screen, BLACK, [0,0,500,500])
         ground_square = pygame.draw.rect(screen, GREEN, [0,300,500,500])
         player_square = pygame.draw.rect(screen, player_color, [playerx,playery,square_size,square_size])
-        enemy1_square = pygame.draw.rect(screen, RED, [enemyX1,enemyY1,square_size,square_size])
+        if enemy1Alive == True:
+            enemy1_square = pygame.draw.rect(screen, RED, [enemyX1,enemyY1,square_size,square_size])
         # Player movement
         if pygame.Rect.colliderect(player_hitbox, ground_square) == 0:
             playery = playery + gravity
@@ -105,10 +107,11 @@ while not done:
             done = killplayer("OUT_OF_WORLD")
         if pygame.Rect.colliderect(player_hitbox, enemy1_hitbox) == 1:
             done = killplayer("ENEMY_KILL")
+        if enemyY1 > 500:
+            enemy1Alive = False
         if show_debug == True:
-            print(velocityY)
-            print(playerx)
-            print(playery)
-
+            print("Player Velocity: " + str(velocityY))
+            print("Player Cords: " + str(playerx) + ", " + str(playery))
+            print("Enemy Alive? " + str(enemy1Alive))
         pygame.display.update()
         pygame.display.flip()

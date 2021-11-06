@@ -8,9 +8,7 @@ pygame.init()
 GameName = "2D Python Game" # The name of the game
 enable_music = True # Whether or not music is enabled
 enable_audio = True # Whether or not audio should be played
-Inv_Slot = 0 # Default inventory slot
 enable_program = True # Enables or Disables the program
-facing = "Right" # Default player rotation
 
 # Color rgb codes
 BLACK = (0, 0, 0) # The RGB code for Black
@@ -26,7 +24,7 @@ player_color = (255, 255, 255) # The color of the player's hitbox
 block_color = GREEN # Default square color
 dialog_color = (255, 255, 255) # Dialog box color
 background_color = (128, 0, 128) # The background color of the game
-show_debug = False # Enable debugging messages
+show_debug = True # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
 
