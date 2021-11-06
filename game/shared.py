@@ -29,18 +29,10 @@ background_color = (128, 0, 128) # The background color of the game
 show_debug = False # Enable debugging messages
 enable_crash_debug = False # Enables keybind to cause a game crash
 
-# File paths
-item_path = "Textures/items/" # Where to pull item textures from
-environment_audio_path = "Audio/Environment/" # Where to pull environment audio from
-environment_path = "Textures/Environment/" # Where to pull environmental textures from
-characters_path = "Textures/Characters/" # Where to pull character textures from
-transparent_prefix = "transparent_" # The prefix to use when retrieving transparent files
-flipped_prefix = "flipped_" # The prefix for getting flipped item textures
 
 # Internal variables, changing them will cause issues
 size = [500, 500] # The size of the screen
 square_size = 20 # How big the default hitbox is
-# item_size = 10 # The size of an item's hitbox
 fps = 60 # The FPS of the game
 inv = [0, 0, 0, 0, 0, 0] # Inventory list
 minimum_slot = 80 # The default coordinates of slot 0
@@ -51,3 +43,4 @@ version = "0.01"
 speed = 3
 gravity = 3
 jump = 15
+PlayerName = "Player"
