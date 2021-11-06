@@ -56,9 +56,6 @@ while not done:
         if not velocityY == 0:
             playery = playery - velocityY
             velocityY = velocityY - 1
-        if not EnemyVelocity1 == 0:
-            enemyY1 = enemyY1 - EnemyVelocity1
-            EnemyVelocity1 = EnemyVelocity1 - 1
 
         # Enemy movement
         if enemyX1 > playerx:
@@ -68,9 +65,13 @@ while not done:
         if enemyY1 > playery:
             if enemyX1 == playerx:
                 if pygame.Rect.colliderect(enemy1_hitbox, ground_square) == 1:
-                    EnemyVelocity1 = jump
+                    EnemyVelocity1 = jump * 0.7
         if pygame.Rect.colliderect(enemy1_hitbox, ground_square) == 0:
             enemyY1 = enemyY1 + gravity
+        if not EnemyVelocity1 <= 0:
+            enemyY1 = enemyY1 - EnemyVelocity1
+            EnemyVelocity1 = EnemyVelocity1 - 1
+
         # Controls
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,7 +86,7 @@ while not done:
         if state[pygame.K_w]:
             if disable_controls == False:
                 if pygame.Rect.colliderect(player_hitbox, ground_square) == 1:
-                    playery = playery - jump
+                    velocityY = jump
         if state[pygame.K_LEFT]:
             if disable_controls == False:
                 playerx = playerx - speed
