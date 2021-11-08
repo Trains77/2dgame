@@ -31,8 +31,7 @@ def killplayer(DeathMessage):
 disable_controls = False
 playerx = 250
 playery = 0
-enemyY1 = 0
-enemyX1 = 100
+enemy1_pos = [100, 0]
 enemy1Alive = True
 EnemyVelocity1 = 0
 screen = pygame.display.set_mode(size)
@@ -41,17 +40,39 @@ done = False
 # pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 velocityY = 0
+def enemy_movement(enemy_pos, EnemyVelocity, enemyid, enemyAlive):
+    finished = done
+    enemyid = pygame.draw.rect(screen, BLACK, [enemy_pos[0] - 1, enemy1_pos[1] - 1,square_size + 1,square_size + 1])
+    if enemyAlive == True:
+        enemy1_square = pygame.draw.rect(screen, RED, [enemy1_pos[0],enemy1_pos[1],square_size,square_size])
+    if enemy_pos[0] > playerx:
+        enemy_pos[0] = enemy_pos[0] - speed / 2
+    if enemy_pos[0] < playerx:
+        enemy_pos[0] = enemy_pos[0] + speed / 2
+    if enemy_pos[1] > playery:
+        if enemy_pos[0] == playerx:
+            if pygame.Rect.colliderect(enemyid, ground_square) == 1:
+                EnemyVelocity = jump * 0.7
+    if pygame.Rect.colliderect(enemyid, ground_square) == 0:
+        enemy_pos[1] = enemy_pos[1] + gravity
+    if not EnemyVelocity <= 0:
+        enemy_pos[1] = enemy_pos[1] - EnemyVelocity
+        EnemyVelocity = EnemyVelocity - 1
+    #
+    if pygame.Rect.colliderect(player_hitbox, enemyid) == 1:
+        finished = killplayer("ENEMY_KILL")
+    if enemy_pos[1] > 500:
+        enemyAlive = False
+    return enemy_pos, EnemyVelocity, enemyAlive, finished
 while not done:
         clock.tick(fps)
         screen.fill(BLUE)
         mouse_button_list = pygame.mouse.get_pressed(num_buttons=3)
         player_hitbox = pygame.draw.rect(screen, GRAY, [playerx - 1, playery - 1,square_size + 1,square_size + 1])
-        enemy1_hitbox = pygame.draw.rect(screen, WHITE, [enemyX1 - 1, enemyY1 - 1,square_size + 1,square_size + 1])
+        enemy1_hitbox = pygame.draw.rect(screen, WHITE, [enemy1_pos[0] - 1, enemy1_pos[1] - 1,square_size + 1,square_size + 1])
         background = pygame.draw.rect(screen, BLACK, [0,0,500,500])
         ground_square = pygame.draw.rect(screen, GREEN, [0,300,500,500])
         player_square = pygame.draw.rect(screen, player_color, [playerx,playery,square_size,square_size])
-        if enemy1Alive == True:
-            enemy1_square = pygame.draw.rect(screen, RED, [enemyX1,enemyY1,square_size,square_size])
         # Player movement
         if pygame.Rect.colliderect(player_hitbox, ground_square) == 0:
             playery = playery + gravity
@@ -59,20 +80,8 @@ while not done:
             playery = playery - velocityY
             velocityY = velocityY - 1
 
+        enemy1_pos, EnemyVelocity1, enemy1Alive, done = enemy_movement(enemy1_pos, EnemyVelocity1, enemy1_hitbox, enemy1Alive)
         # Enemy movement
-        if enemyX1 > playerx:
-            enemyX1 = enemyX1 - speed / 2
-        if enemyX1 < playerx:
-            enemyX1 = enemyX1 + speed / 2
-        if enemyY1 > playery:
-            if enemyX1 == playerx:
-                if pygame.Rect.colliderect(enemy1_hitbox, ground_square) == 1:
-                    EnemyVelocity1 = jump * 0.7
-        if pygame.Rect.colliderect(enemy1_hitbox, ground_square) == 0:
-            enemyY1 = enemyY1 + gravity
-        if not EnemyVelocity1 <= 0:
-            enemyY1 = enemyY1 - EnemyVelocity1
-            EnemyVelocity1 = EnemyVelocity1 - 1
 
         # Controls
         for event in pygame.event.get():
@@ -105,13 +114,8 @@ while not done:
 
         if playery > 500:
             done = killplayer("OUT_OF_WORLD")
-        if pygame.Rect.colliderect(player_hitbox, enemy1_hitbox) == 1:
-            done = killplayer("ENEMY_KILL")
-        if enemyY1 > 500:
-            enemy1Alive = False
         if show_debug == True:
             print("Player Velocity: " + str(velocityY))
             print("Player Cords: " + str(playerx) + ", " + str(playery))
-            print("Enemy Alive? " + str(enemy1Alive))
         pygame.display.update()
         pygame.display.flip()
