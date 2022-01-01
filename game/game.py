@@ -41,6 +41,7 @@ enemy1_on_ground = False
 player_on_ground = False
 player_on_roof = False
 enemy1_on_roof = False
+camera = [0, 0]
 # pygame.display.set_icon(gameIcon)
 clock = pygame.time.Clock()
 velocityY = 0
