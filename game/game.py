@@ -47,9 +47,9 @@ clock = pygame.time.Clock()
 velocityY = 0
 def enemy_movement(enemy_pos, EnemyVelocity, enemyid, enemyAlive, enemy_on_ground, Enemy_On_Roof):
     finished = done
-    enemyid = pygame.draw.rect(screen, BLACK, [enemy_pos[0] - 1, enemy1_pos[1] - 1,square_size + 1,square_size + 1])
+    enemyid = pygame.draw.rect(screen, BLACK, [enemy_pos[0] - 1, enemy1_pos[1] - 1, square_size + 1 ,square_size + 1])
     if enemyAlive == True:
-        enemy1_square = pygame.draw.rect(screen, RED, [enemy_pos[0],enemy_pos[1],square_size,square_size])
+        enemyid = pygame.draw.rect(screen, RED, [enemy_pos[0],enemy_pos[1],square_size,square_size])
     if enemy_pos[0] > playerx:
         enemy_pos[0] = enemy_pos[0] - speed / 2
     if enemy_pos[0] < playerx:
