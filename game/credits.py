@@ -4,8 +4,6 @@ from shared import version
 print(fore.BLUE)
 print("Program by Trains77")
 print()
-# print("Background Music: https://www.FesliyanStudios.com")
-# print()
 print("Made with Atom Editor")
 print()
 print("Utilizes Pygame")
