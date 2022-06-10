@@ -10,10 +10,14 @@ from colored import fore, back, style
 import math
 import random
 import credits
-from shared import size, show_debug, PlayerName, GameName, gravity, fps, background_color, BLACK, RED, GREEN, BLUE, WHITE, GRAY, player_color, square_size, speed, jump
+from shared import size, show_debug, enable_program, system_recommends, PlayerName, GameName, gravity, fps, background_color, BLACK, RED, GREEN, BLUE, WHITE, GRAY, player_color, square_size, speed, jump
 def image_display(surface, filename, xy):
     img = pygame.image.load(filename)
     surface.blit(img, xy)
+
+if not platform.system() == system_recommends:
+    print(style.BOLD + fore.RED + "Warning: Your " + platform.system() + " system may not work with this program" + style.RESET)
+
 
 def playsound(channel,audiofile):
     pygame.mixer.Channel(channel).play(pygame.mixer.Sound(audiofile))
